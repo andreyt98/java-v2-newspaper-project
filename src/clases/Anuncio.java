@@ -1,5 +1,4 @@
 package clases;
-
 import javax.swing.JComboBox;
 
 public class Anuncio {
@@ -13,9 +12,7 @@ public class Anuncio {
     protected double costoIva;
    
     //constructores
-    public Anuncio() {
-
-    }
+    public Anuncio() { }
 
     public Anuncio(String seccion, String titulo, String fecha, String descripcion, double costo, double costoIva) {
         this.seccion = seccion;
@@ -92,19 +89,13 @@ public class Anuncio {
 
         } else if (combo.getSelectedItem() == "Económicos") {
             costo = (50 * titulo.length()) + (50 * descripcion.length());
-
         }
 
         return costo;
     }
 
-    public double costoIva(JComboBox combo2) {
-
-        
+    public double costoIva(JComboBox combo2) {      
         costoIva = (float) (costo + (costo * 0.13));    
         return costoIva;
-
-    }
- 
+    } 
 }
-
