@@ -73,25 +73,44 @@ public class Anuncio {
     }
    
     //métodos de costo
-    public double costo(JComboBox combo) {
+    public double costo(JComboBox<String> combo) {
 
-        if (combo.getSelectedItem() == "Nacionales") {
-            costo = (80 * titulo.length()) + (80 * descripcion.length());
+        //test this code on netbeans 8.2
+        int extra = 0;
 
-        } else if (combo.getSelectedItem() == "Internacionales") {
-            costo = (70 * titulo.length()) + (70 * descripcion.length());
-
-        } else if (combo.getSelectedItem() == "Deportes") {
-            costo = (90 * titulo.length()) + (90 * descripcion.length());
-
-        } else if (combo.getSelectedItem() == "Culturales") {
-            costo = (85 * titulo.length()) + (85 * descripcion.length());
-
-        } else if (combo.getSelectedItem() == "Económicos") {
-            costo = (50 * titulo.length()) + (50 * descripcion.length());
+        switch(combo.getSelectedItem().toString()){
+            case "Nacionales": extra = 80;
+            break;
+            case "Internacionales": extra = 70;
+            break;
+            case "Deportes": extra = 90;
+            break;
+            case "Culturales": extra = 85;
+            break;
+            case "Económicos": extra = 50;
+            break;
         }
 
+        costo = (extra * titulo.length()) + (extra * descripcion.length());
+        
         return costo;
+
+                        //---OLD---
+        // if (combo.getSelectedItem() == "Nacionales") {
+        //     costo = (80 * titulo.length()) + (80 * descripcion.length());
+
+        // } else if (combo.getSelectedItem() == "Internacionales") {
+        //     costo = (70 * titulo.length()) + (70 * descripcion.length());
+
+        // } else if (combo.getSelectedItem() == "Deportes") {
+        //     costo = (90 * titulo.length()) + (90 * descripcion.length());
+
+        // } else if (combo.getSelectedItem() == "Culturales") {
+        //     costo = (85 * titulo.length()) + (85 * descripcion.length());
+
+        // } else if (combo.getSelectedItem() == "Económicos") {
+        //     costo = (50 * titulo.length()) + (50 * descripcion.length());
+        // }
     }
 
     public double costoIva(JComboBox combo2) {      
