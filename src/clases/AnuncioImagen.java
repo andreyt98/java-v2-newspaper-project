@@ -19,8 +19,7 @@ public class AnuncioImagen extends Anuncio{
         this.milimetroCuadrado = milimetroCuadrado;
     }
     
-    public double getMilimetros(){
-        
+    public double getMilimetros(){        
         return milimetroCuadrado;        
     }
 
@@ -59,5 +58,4 @@ public class AnuncioImagen extends Anuncio{
 
         return costoConMilimetroIva;
     }
-  
 }

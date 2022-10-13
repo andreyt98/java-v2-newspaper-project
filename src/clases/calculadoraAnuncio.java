@@ -1,5 +1,3 @@
-
-
 package clases;
 
 import java.awt.Color;
@@ -16,19 +14,16 @@ public class calculadoraAnuncio extends javax.swing.JFrame {
     AnuncioTradicional tradicional = new AnuncioTradicional();
     AnuncioImagen conImagen = new AnuncioImagen();
     AnuncioClienteFrecuente  frecuente = new AnuncioClienteFrecuente();
-    
-    
+      
     DecimalFormat format = new DecimalFormat(".00");
     DecimalFormat format2 = new DecimalFormat();
 
     //mover frame 
     int mouseX;
-    int mouseY;
-    
+    int mouseY;   
     
     Icon icon = new javax.swing.ImageIcon(getClass().getResource("/images/error.png"));
-
-    
+   
     public calculadoraAnuncio() {
         initComponents();
         setLocationRelativeTo(null);
@@ -42,18 +37,12 @@ public class calculadoraAnuncio extends javax.swing.JFrame {
         txtDescripcion.setBorder(null);
         txtDescripcion.setBackground(new Color(0,0,0,120));
         txtvalor.setBackground(new Color(0,0,0,120));
-        
-        
-        
-        
+  
         txtvalor.setVisible(false);
         labelNuevosDatos.setVisible(false);
         labelSimbolo.setVisible(false);
-       
-
     }
-
-   
+  
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -435,19 +424,14 @@ public class calculadoraAnuncio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     //activa ciertos componentes cuando se selecciona el anuncio con imagen o de cliente frecuente
-    private void activarComponentes(String nuevosDatos, String simbolo){ 
-        
+    private void activarComponentes(String nuevosDatos, String simbolo){       
             labelNuevosDatos.setVisible(true);
             txtvalor.setVisible(true);
             labelSimbolo.setVisible(true);
             labelNuevosDatos.setText(nuevosDatos);
-            labelSimbolo.setText(simbolo);
-    
+            labelSimbolo.setText(simbolo);  
     }
-    
-    
  
-    
     private void btnIngresarDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarDatosMouseClicked
         
         boolean pasarDePanel = true;
@@ -465,7 +449,6 @@ public class calculadoraAnuncio extends javax.swing.JFrame {
         }catch(NullPointerException ex){
 
             JOptionPane.showMessageDialog(null,"Por favor, elija el tipo de anuncio", "Datos incompletos",0, icon);
-
         }
         
         
@@ -487,16 +470,12 @@ public class calculadoraAnuncio extends javax.swing.JFrame {
                 bannerTipoAnuncio.setText("Anuncio de cliente frecuente");
                 activarComponentes("Digite el descuento deseado","%");
 
-
             }else if(btnImagen.isSelected()){
                 
                 bannerTipoAnuncio.setText("Anuncio con imagen");
                 activarComponentes("Milimetros de la imagen", "mm");
-                
-
             }
         }
-
         
     }//GEN-LAST:event_btnIngresarDatosMouseClicked
 
@@ -511,9 +490,7 @@ public class calculadoraAnuncio extends javax.swing.JFrame {
     private void fondoPanelInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fondoPanelInicioMouseClicked
         grupoBotones.clearSelection();
     }//GEN-LAST:event_fondoPanelInicioMouseClicked
-
- 
-    
+   
     private boolean datosValidos(){
         
         boolean enviar = true;
@@ -527,8 +504,7 @@ public class calculadoraAnuncio extends javax.swing.JFrame {
             anuncio.setSeccion(ComboSecciones.getSelectedItem().toString());
             anuncio.setCosto(anuncio.costo(ComboSecciones));
             anuncio.setCostoIva(anuncio.costoIva(ComboSecciones));
-            
-            
+                       
             if(txtTitulo.getText().length() > 15 ){ //este error se muestra hasta que todos los demás datos se hayan introducido
 
                 JOptionPane.showMessageDialog(null,"El titulo no debe contener mas de 15 caracteres", "Titulo invalido",0,icon); 
@@ -538,12 +514,9 @@ public class calculadoraAnuncio extends javax.swing.JFrame {
             if(txtTitulo.getText().trim().equals("") || txtDescripcion.getText().trim().equals("")){
                 throw new NullPointerException();
             }
-            
-      
-            
+                 
             if(btnFrecuente.isSelected() || btnImagen.isSelected()){
-            
-         
+ 
                 try{
 
                     if(btnFrecuente.isSelected()){
@@ -551,10 +524,9 @@ public class calculadoraAnuncio extends javax.swing.JFrame {
 
                     }else if(btnImagen.isSelected()){
                           conImagen.setMilimetros(Double.parseDouble(txtvalor.getText()));
-
                     }
 
-                        validacion.setText("");
+                    validacion.setText("");
 
                 }catch(NumberFormatException e){
                         enviar = false;
@@ -570,16 +542,11 @@ public class calculadoraAnuncio extends javax.swing.JFrame {
        
         return enviar;  
     }
-    
-    
-    
-  
+
     private void calculoAnuncioTradicional(){
-        
-      
+             
        if(anuncio.descripcion.length() <15){//sin descuento
-                        
-  
+
             String costoFormat = format.format(anuncio.getCosto());
             String costoIvaFormat = format.format(anuncio.getCostoIva());
  
@@ -588,39 +555,25 @@ public class calculadoraAnuncio extends javax.swing.JFrame {
             datoExtra.setText(String.valueOf("Descripción de "+ anuncio.descripcion.length()) + " caracteres (sin descuento)");
 
         }else if(anuncio.descripcion.length() >=15){//con descuento
-           
-   
+             
             tradicional.setCosto(tradicional.costo(anuncio.costo, anuncio.descripcion));
             tradicional.setCostoIva(tradicional.costoIva());
-            
-            
+                      
             String costoFormatDescuento = format.format(tradicional.getCosto());
             String costoIvaFormatDescuento = format.format(tradicional.getCostoIva());
-            
-            
+                      
             //le damos valores para mostrar a los fields de resultados
             costoResultado.setText("Costo con descuento: ₡" + String.valueOf(costoFormatDescuento));
             costoIvaResultado.setText("Costo con descuento e IVA: ₡" + String.valueOf(costoIvaFormatDescuento));
-            datoExtra.setText("Descripción de "+ String.valueOf(anuncio.descripcion.length()) + " caracteres (descuento aplicable)");
-        
-        
+            datoExtra.setText("Descripción de "+ String.valueOf(anuncio.descripcion.length()) + " caracteres (descuento aplicable)");     
         }
-    
-    
-    
-    
-    
     }
 
-    
-    
     private void calculoAnuncioFrecuente(){
         
         frecuente.setCosto(frecuente.costo(anuncio.costo, frecuente.getDescuentoUsuario()));
         frecuente.setCostoIva(frecuente.costoIva(anuncio.costo, frecuente.getCosto()));
-        
-        
-        
+   
         String valorDescuento = format2.format(frecuente.getDescuentoUsuario());
 
         datoExtra.setText("Descuento de:  " + valorDescuento + "%");
@@ -629,61 +582,41 @@ public class calculadoraAnuncio extends javax.swing.JFrame {
         String costoIvaFormat = format.format(frecuente.getCostoIva());
  
         costoResultado.setText("Costo con descuento: ₡" + String.valueOf(costoFormat));
-        costoIvaResultado.setText("Costo con descuento e IVA: ₡" + String.valueOf(costoIvaFormat));
-    
+        costoIvaResultado.setText("Costo con descuento e IVA: ₡" + String.valueOf(costoIvaFormat));  
     }
-       
-    
-    
+  
     private void calculoAnuncioImagen(){
-    
-    
-    conImagen.costo(anuncio.costo, conImagen.getMilimetros());
-    conImagen.costoIva(conImagen.getCosto(), conImagen.getMilimetros());
-    
-    String costoFormat = format.format(conImagen.getCosto());
-    String costoIvaFormat = format.format(conImagen.getCostoIva());
-    
-    costoResultado.setText("Costo: ₡" + String.valueOf(costoFormat));
-    costoIvaResultado.setText("Costo con IVA: ₡" + String.valueOf(costoIvaFormat));
-    
-    String milimetros = format2.format(conImagen.getMilimetros());
-    String costoxmilimetro = format2.format(conImagen.getMilimetros()* 25);
+      
+        conImagen.costo(anuncio.costo, conImagen.getMilimetros());
+        conImagen.costoIva(conImagen.getCosto(), conImagen.getMilimetros());
+        
+        String costoFormat = format.format(conImagen.getCosto());
+        String costoIvaFormat = format.format(conImagen.getCostoIva());
+        
+        costoResultado.setText("Costo: ₡" + String.valueOf(costoFormat));
+        costoIvaResultado.setText("Costo con IVA: ₡" + String.valueOf(costoIvaFormat));
+        
+        String milimetros = format2.format(conImagen.getMilimetros());
+        String costoxmilimetro = format2.format(conImagen.getMilimetros()* 25);
 
-    datoExtra.setText( milimetros + " milimetros   (₡" + costoxmilimetro + " extra)");
-    
-    
-    
-    
-    
+        datoExtra.setText( milimetros + " milimetros   (₡" + costoxmilimetro + " extra)");
+
     }
-    
-    
-    
-    
-     
-    
-    
+ 
     private void mostrarDatos(){
     
         tituloResultado.setText("Titulo:    " + anuncio.titulo.toUpperCase());
         SeccionResultado.setText("Sección:    " + anuncio.seccion.toUpperCase());
         fechaResultado.setText("Fecha:    " +anuncio.fecha.toUpperCase());
         descripcionResultado.setText("Descripción:   " +anuncio.descripcion.toUpperCase());
-   
-    
     }
-       
-       
-  
-       
+   
     private void txtvalorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtvalorKeyPressed
 
         char input = evt.getKeyChar();
 
         try{
-            
-            
+                       
             if(btnFrecuente.isSelected()){
                 frecuente.setDescuentoUsuario(Double.parseDouble(txtvalor.getText()+input));
 
@@ -692,7 +625,7 @@ public class calculadoraAnuncio extends javax.swing.JFrame {
 
             }
  
-                validacion.setText("");
+            validacion.setText("");
 
         }catch(NumberFormatException e){
 
@@ -700,26 +633,18 @@ public class calculadoraAnuncio extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_txtvalorKeyPressed
-
-    
  
-   
-    
-    
     private void btnFlechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFlechaActionPerformed
         
         if(ventanas.getSelectedIndex() == 2){
             hidePanel.setBackground(Color.decode("0x06759F"));
 
             ventanas.setSelectedIndex(1);
-            
-        
-        
+  
         } else if(ventanas.getSelectedIndex() == 1){
         
             ventanas.setSelectedIndex(0);
-        
-        
+              
             hidePanel.setBackground(Color.decode("0x11161B"));
             grupoBotones.clearSelection();
             btnFlecha.setVisible(false);
@@ -732,15 +657,8 @@ public class calculadoraAnuncio extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnFlechaActionPerformed
 
-    
-    
-    
-  
-    
     private void btnGenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarReporteActionPerformed
-    
-       
-    
+
             if(datosValidos()){
                 
                 ventanas.setSelectedIndex(2);
@@ -761,12 +679,8 @@ public class calculadoraAnuncio extends javax.swing.JFrame {
                     calculoAnuncioImagen();
                 
                 }
-                
-   
-                
-                mostrarDatos();
-
-                
+          
+                mostrarDatos();          
                 
             }
     }//GEN-LAST:event_btnGenerarReporteActionPerformed
@@ -783,13 +697,6 @@ public class calculadoraAnuncio extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnNuevoReporteActionPerformed
 
-    
-    
-    
-    
-    
-    
-    
     //extras
     private void panelInicioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelInicioMousePressed
          mouseX = evt.getX();
@@ -853,10 +760,8 @@ public class calculadoraAnuncio extends javax.swing.JFrame {
 //-----------------------------------------------------------------------------------
     
     //main
-    public static void main(String args[]) {
-       
-        try {
-            
+    public static void main(String args[]) {      
+        try {           
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
@@ -872,8 +777,6 @@ public class calculadoraAnuncio extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(calculadoraAnuncio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
- 
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
